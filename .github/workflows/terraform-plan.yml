@@ -2,6 +2,7 @@ name: "Terraform Plan"
 
 on:
   pull_request:
+  issue_comment:
 
 env:
   TF_CLOUD_ORGANIZATION: "minedetector-org"
@@ -11,7 +12,8 @@ env:
 
 jobs:
   terraform:
-    if: github.repository != 'hashicorp-education/learn-terraform-github-actions'
+    if: ${{ github.event.issue.pull_request }}
+    #if: ${{ contains(github.event.comment.body, '!plan') }}
     name: "Terraform Plan"
     runs-on: ubuntu-latest
     permissions:
