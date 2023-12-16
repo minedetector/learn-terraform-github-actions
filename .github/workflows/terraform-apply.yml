@@ -1,9 +1,7 @@
 name: "Terraform Apply"
 
 on:
-  push:
-    branches:
-      - main
+  issue_comment:
 
 env:
   TF_CLOUD_ORGANIZATION: "minedetector-org"
@@ -13,7 +11,7 @@ env:
 
 jobs:
   terraform:
-    if: github.repository != 'hashicorp-education/learn-terraform-github-actions'
+    if: contains(github.event.comment.body, '!apply')
     name: "Terraform Apply"
     runs-on: ubuntu-latest
     permissions:
