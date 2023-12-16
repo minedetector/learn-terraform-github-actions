@@ -12,13 +12,15 @@ env:
 
 jobs:
   terraform:
-    if: ${{ github.event_name == 'pull_request' && contains(github.event.comment.body, '!plan') }}
     name: "Terraform Plan"
     runs-on: ubuntu-latest
     permissions:
       contents: read
       pull-requests: write
     steps:
+      - name: Debug event payload
+        run: echo "${{ toJson(github.event) }}"
+      
       - name: Checkout
         uses: actions/checkout@v3
 
